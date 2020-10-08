@@ -1,21 +1,21 @@
-package Domain;
+package domain;
 
-import UserExceptions.EntryScheduleException;
+import userexceptions.EntryScheduleException;
 
 public class TimeScheduled {
-	private String date;
+	private Days day;
 	private double startTime;
 	private double endTime;
 	
-	public TimeScheduled(String date, double startTime, double endTime) throws EntryScheduleException {
-		this.setDate(date);
+	public TimeScheduled(Days day, double startTime, double endTime) throws EntryScheduleException {
+		this.setDay(day);
 		this.setStartTime(startTime);
 		this.setEndTime(endTime);
 		this.checkStartAndEndTime();
 	}
 
-	public String getDate() {
-		return date;
+	public Days getDay() {
+		return day;
 	}
 
 	public double getStartTime() {
@@ -26,8 +26,8 @@ public class TimeScheduled {
 		return endTime;
 	}
 	
-	public void setDate(String date) {
-		this.date = date;
+	public void setDay(Days day) {
+		this.day = day;
 	}
 
 	public void setStartTime(double startTime) {
@@ -46,6 +46,10 @@ public class TimeScheduled {
 		this.endTime = endTime;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("Day: %s\nTime Scheduled: %f - %f", day, startTime, endTime);
+	}
 	private void checkStartAndEndTime() {
 		if (startTime == endTime) {
 			throw new EntryScheduleException("Start and end time must not be the same.");

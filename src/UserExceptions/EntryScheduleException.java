@@ -1,4 +1,4 @@
-package UserExceptions;
+package userexceptions;
 
 import java.util.InputMismatchException;
 
