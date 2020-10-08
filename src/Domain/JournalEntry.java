@@ -1,5 +1,6 @@
 package domain;
 
+import database.CSVFile;
 import userexceptions.EntryScheduleException;
 
 public class JournalEntry extends Entry implements Comparable<JournalEntry> {
@@ -68,29 +69,35 @@ public class JournalEntry extends Entry implements Comparable<JournalEntry> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
+		if (this == obj) {
+			return true;			
+		}
 		
-		if (obj == null)
+		if (obj == null) {
 			return false;
+		}
 		
-		if (getClass() != obj.getClass())
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		
 		JournalEntry other = (JournalEntry) obj;
 		
 		if (this.toString() == null) {
-			if (other.toString() != null)
+			if (other.toString() != null) {
 				return false;
-		} else if (!this.toString().equals(other.toString()))
+			}
+		} else if (!this.toString().equals(other.toString())) {
 			return false;
+		}
 				
 		return true;
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("Title: %s\nDate: %s\nDescription:%s",
-				getTitle(), getDate(), getDescription());
+		return String.format("%s%s%s%s%s",
+				getTitle(), CSVFile.SAVE_DELIMITER, getDate(),
+				CSVFile.SAVE_DELIMITER, getDescription());
 	}
 }

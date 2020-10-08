@@ -5,10 +5,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import domain.Loadable;
+import domain.Saveable;
 import domain.WeeklyScheduleEntry;
 import userexceptions.EntryScheduleException;
 
-public class WeeklyScheduleEntries {
+public class WeeklyScheduleEntries implements Loadable, Saveable {
 	
 	private HashMap<Integer, WeeklyScheduleEntry> weeklyEntries;
 	private int entryNumber;
@@ -77,5 +79,17 @@ public class WeeklyScheduleEntries {
 				 				 .stream()
 				 				 .sorted(compareByDescriptionLength)
 				 				 .collect(Collectors.toCollection(ArrayList::new));
+	}
+
+	@Override
+	public void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+		
 	}
 }

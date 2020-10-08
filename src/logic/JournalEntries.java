@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import domain.JournalEntry;
+import domain.Loadable;
+import domain.Saveable;
 import userexceptions.EntryScheduleException;
 
-public class JournalEntries {
+public class JournalEntries implements Loadable, Saveable {
 	
 	private HashMap<Integer, JournalEntry> journalEntries;
 	private int entryNumber;
@@ -77,5 +79,17 @@ public class JournalEntries {
 				 				  .stream()
 				 				  .sorted(compareByDescriptionLength)
 				 				  .collect(Collectors.toCollection(ArrayList::new));
+	}
+
+	@Override
+	public void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void load() {
+		// TODO Auto-generated method stub
+		
 	}
 }

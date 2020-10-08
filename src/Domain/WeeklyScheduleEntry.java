@@ -1,5 +1,6 @@
 package domain;
 
+import database.CSVFile;
 import userexceptions.EntryScheduleException;
 
 public class WeeklyScheduleEntry extends JournalEntry {
@@ -48,29 +49,35 @@ public class WeeklyScheduleEntry extends JournalEntry {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
+		if (this == obj) {
+			return true;			
+		}
 		
-		if (obj == null)
-			return false;
+		if (obj == null) {
+			return false;			
+		}
 		
-		if (getClass() != obj.getClass())
-			return false;
+		if (getClass() != obj.getClass()) {
+			return false;			
+		}
 		
 		WeeklyScheduleEntry other = (WeeklyScheduleEntry) obj;
 		
 		if (this.toString() == null) {
-			if (other.toString() != null)
-				return false;
-		} else if (!this.toString().equals(other.toString()))
-			return false;
+			if (other.toString() != null) {
+				return false;				
+			}
+		} else if (!this.toString().equals(other.toString())) {
+			return false;			
+		}
 				
 		return true;
 	}
 	
 	@Override
 	public String toString() {
-		return String.format("Title: %s\nDate: %s\n%s\nDescription:%s",
-				getTitle(), getDate(), getTimeScheduled(), getDescription());
+		return String.format("%s%s%s%s%s%s%s",
+				getTitle(), CSVFile.SAVE_DELIMITER, getDate(), CSVFile.SAVE_DELIMITER,
+				getTimeScheduled(), CSVFile.SAVE_DELIMITER, getDescription());
 	}
 }

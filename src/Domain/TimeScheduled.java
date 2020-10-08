@@ -1,5 +1,6 @@
 package domain;
 
+import database.CSVFile;
 import userexceptions.EntryScheduleException;
 
 public class TimeScheduled {
@@ -48,8 +49,10 @@ public class TimeScheduled {
 	
 	@Override
 	public String toString() {
-		return String.format("Day: %s\nTime Scheduled: %f - %f", day, startTime, endTime);
+		return String.format("%s%s%f%s%f",
+				day, CSVFile.SAVE_DELIMITER, startTime, CSVFile.SAVE_DELIMITER, endTime);
 	}
+	
 	private void checkStartAndEndTime() {
 		if (startTime == endTime) {
 			throw new EntryScheduleException("Start and end time must not be the same.");
