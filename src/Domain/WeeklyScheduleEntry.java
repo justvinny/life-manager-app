@@ -8,10 +8,10 @@ public class WeeklyScheduleEntry extends JournalEntry {
 	
 	private TimeScheduled timeScheduled;
 	
-	public WeeklyScheduleEntry(String title, String description, Date date, TimeScheduled timeScheduled) {
+	public WeeklyScheduleEntry(String title, Date date, TimeScheduled timeScheduled, String description) {
 		super(title, date);
-		this.setDescription(description);
 		this.setTimeScheduled(timeScheduled);
+		this.setDescription(description);
 	}
 
 	public TimeScheduled getTimeScheduled() {
@@ -20,11 +20,11 @@ public class WeeklyScheduleEntry extends JournalEntry {
 	
 	@Override
 	public void setDescription(String description) {
-		if (this.description.length() > WeeklyScheduleEntry.DESCRIPTION_LIMIT) {
+		if (description.length() > WeeklyScheduleEntry.DESCRIPTION_LIMIT) {
 			throw new EntryScheduleException("Description length must be less than 64 characters.");
 		}
 		
-		this.description = description;
+		super.setDescription(description);
 	}
 	
 	public void setTimeScheduled(TimeScheduled timeScheduled) {
@@ -79,5 +79,15 @@ public class WeeklyScheduleEntry extends JournalEntry {
 		return String.format("%s%s%s%s%s%s%s",
 				getTitle(), CSVFile.SAVE_DELIMITER, getDate(), CSVFile.SAVE_DELIMITER,
 				getTimeScheduled(), CSVFile.SAVE_DELIMITER, getDescription());
+	}
+	
+	public static WeeklyScheduleEntry factoryLoadFromCSV(String weeklyScheduleEntryString) {
+		String[] fieldStrings = weeklyScheduleEntryString.split(CSVFile.LOAD_DELIMITER);
+		String title = fieldStrings[0];
+		Date date = new Date(fieldStrings[1]);
+		TimeScheduled timeScheduled = new TimeScheduled(fieldStrings[2]);
+		String description = fieldStrings[3];
+		
+		return new WeeklyScheduleEntry(title, date, timeScheduled, description);
 	}
 }

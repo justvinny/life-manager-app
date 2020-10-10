@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 import userexceptions.EntryScheduleException;
 
 public class Date implements Comparable<Date>{
@@ -11,6 +13,10 @@ public class Date implements Comparable<Date>{
 		this.setYear(year);
 		this.setMonth(month);
 		this.setDay(day);
+	}
+	
+	public Date(String dateString) {
+		this.convertToFields(dateString);
 	}
 
 	public int getYear() {
@@ -65,5 +71,17 @@ public class Date implements Comparable<Date>{
 		}
 		
 		return this.getYear() - o.getYear();
+	}
+	
+	private void convertToFields(String dateString) {
+		Objects.requireNonNull(dateString);
+		String[] fieldStrings = dateString.split("-");
+		int day = Integer.valueOf(fieldStrings[0]);
+		int month = Integer.valueOf(fieldStrings[1]);
+		int year = Integer.valueOf(fieldStrings[2]);
+		
+		this.setDay(day);
+		this.setMonth(month);
+		this.setYear(year);
 	}
 }

@@ -1,19 +1,21 @@
 package domain;
 
+import java.util.Objects;
+
 import database.CSVFile;
 import userexceptions.EntryScheduleException;
 
 public class JournalEntry extends Entry implements Comparable<JournalEntry> {
-	public static final int DESCRIPTION_LIMIT = 1000;
+	public static final int DESCRIPTION_LIMIT = 3000;
 	
-	protected String description;
+	private String description;
 	private String title;
 	private Date date;
 	
-	public JournalEntry(String title, String description, Date date) {
+	public JournalEntry(String title, Date date, String description) {
 		this.setTitle(title);
-		this.setDescription(description);
 		this.setDate(date);
+		this.setDescription(description);
 	}
 	
 	public JournalEntry(String title, Date date) {
@@ -99,5 +101,15 @@ public class JournalEntry extends Entry implements Comparable<JournalEntry> {
 		return String.format("%s%s%s%s%s",
 				getTitle(), CSVFile.SAVE_DELIMITER, getDate(),
 				CSVFile.SAVE_DELIMITER, getDescription());
+	}
+	
+	public static JournalEntry factoryLoadFromCSV(String journalEntryString) {
+		Objects.requireNonNull(journalEntryString);
+		String[] fieldStrings = journalEntryString.split(CSVFile.LOAD_DELIMITER);
+		String title = fieldStrings[0];
+		Date date = new Date(fieldStrings[1]);
+		String description = fieldStrings[2];
+		
+		return new JournalEntry(title, date, description);
 	}
 }

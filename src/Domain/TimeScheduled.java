@@ -1,9 +1,10 @@
 package domain;
 
-import database.CSVFile;
+import java.util.Objects;
+
 import userexceptions.EntryScheduleException;
 
-public class TimeScheduled {
+public class TimeScheduled implements Comparable<TimeScheduled> {
 	private Days day;
 	private double startTime;
 	private double endTime;
@@ -15,6 +16,10 @@ public class TimeScheduled {
 		this.checkStartAndEndTime();
 	}
 
+	public TimeScheduled(String timeScheduledString) {
+		this.convertToFields(timeScheduledString);
+	}
+	
 	public Days getDay() {
 		return day;
 	}
@@ -49,13 +54,38 @@ public class TimeScheduled {
 	
 	@Override
 	public String toString() {
-		return String.format("%s%s%f%s%f",
-				day, CSVFile.SAVE_DELIMITER, startTime, CSVFile.SAVE_DELIMITER, endTime);
+		return String.format("%s-%.2f-%.2f",
+				day, startTime, endTime);
 	}
 	
 	private void checkStartAndEndTime() {
 		if (startTime == endTime) {
 			throw new EntryScheduleException("Start and end time must not be the same.");
 		}
+		
+		if (endTime < startTime) {
+			throw new EntryScheduleException("End time must not be less than start time.");
+		}
+	}
+	
+	@Override
+	public int compareTo(TimeScheduled o) {
+		if (this.getDay() == o.getDay()) {
+			return Double.compare(this.startTime, o.startTime);
+		}
+		
+		return this.getDay().compareTo(o.getDay());
+	}
+	
+	private void convertToFields(String timeScheduledString) {
+		Objects.requireNonNull(timeScheduledString);
+		String[] fieldStrings = timeScheduledString.split("-");
+		Days day = Days.valueOf(fieldStrings[0]);
+		double startTime = Double.valueOf(fieldStrings[1]);
+		double endTime = Double.valueOf(fieldStrings[2]);
+		
+		this.setDay(day);
+		this.setStartTime(startTime);
+		this.setEndTime(endTime);
 	}
 }
