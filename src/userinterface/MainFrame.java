@@ -1,5 +1,6 @@
 package userinterface;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
@@ -64,7 +65,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void openWeeklyScheduleAddPanel() {
-		this.weeklyScheduleAddPanel = new WeeklyScheduleAddPanel(this);
+		this.weeklyScheduleAddPanel = new WeeklyScheduleAddPanel(this, this.weeklyEntriesController);
 		
 		this.removeActivePanel();
 		
@@ -75,7 +76,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void openWeeklyScheduleRemovePanel() {
-		this.weeklyScheduleRemovePanel = new WeeklyScheduleRemovePanel(this);
+		this.weeklyScheduleRemovePanel = new WeeklyScheduleRemovePanel(this, this.weeklyEntriesController);
 		
 		this.removeActivePanel();
 		
@@ -106,6 +107,7 @@ public class MainFrame extends JFrame {
 	
 	private void frameSettings() {
 		this.setLayout(layout);
+		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		this.setDefaultCloseOperation(MainFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(MainFrame.DIMENSIONS);
 		this.setResizable(false);

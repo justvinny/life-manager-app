@@ -5,7 +5,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,7 +20,7 @@ public class MainMenuPanel extends JPanel {
 	public static final Dimension DIMENSIONS = new Dimension(200, 720);
 	public static final Dimension MAIN_COMP_DIMENSIONS = new Dimension(200, 40);
 	public static final Dimension FILLER_DIMENSIONS = new Dimension(200, 60);
-	public static final Dimension FILLER_BOT_DIMENSIONS = new Dimension(200, 180);
+	public static final Dimension FILLER_BOT_DIMENSIONS = new Dimension(200, 2);
 	public static final Font MAIN_COMP_FONT = new Font("Impact", Font.PLAIN, 20);
 	public static final Font BTN_SUB_FONT = new Font("Impact", Font.PLAIN, 14);
 	
@@ -62,15 +65,15 @@ public class MainMenuPanel extends JPanel {
 		
 		// Gray top filler for menu.
 		this.fillerTopLabel2 = new JLabel("");
-		this.fillerTopLabel2.setBackground(Color.GRAY);
+		this.fillerTopLabel2.setBackground(Color.BLACK);
 		this.fillerTopLabel2.setOpaque(true);
-		this.fillerTopLabel2.setMinimumSize(FILLER_DIMENSIONS);
-		this.fillerTopLabel2.setPreferredSize(FILLER_DIMENSIONS);
-		this.fillerTopLabel2.setMaximumSize(FILLER_DIMENSIONS);
+		this.fillerTopLabel2.setMinimumSize(FILLER_BOT_DIMENSIONS);
+		this.fillerTopLabel2.setPreferredSize(FILLER_BOT_DIMENSIONS);
+		this.fillerTopLabel2.setMaximumSize(FILLER_BOT_DIMENSIONS);
 		
 		// Gray bottom filler for menu.
 		this.fillerBottomLabel = new JLabel("");
-		this.fillerBottomLabel.setBackground(Color.GRAY);
+		this.fillerBottomLabel.setBackground(Color.BLACK);
 		this.fillerBottomLabel.setOpaque(true);
 		this.fillerBottomLabel.setMinimumSize(FILLER_BOT_DIMENSIONS);
 		this.fillerBottomLabel.setPreferredSize(FILLER_BOT_DIMENSIONS);
@@ -80,8 +83,8 @@ public class MainMenuPanel extends JPanel {
 	private void createLabelJournal() {
 		this.labelJournal = new JLabel("Journal", SwingConstants.CENTER);
 		this.labelJournal.setFont(MAIN_COMP_FONT);
-		this.labelJournal.setForeground(Color.WHITE);
-		this.labelJournal.setBackground(Color.GRAY);
+		this.labelJournal.setForeground(Color.BLACK);
+		this.labelJournal.setBackground(Color.LIGHT_GRAY);
 		this.labelJournal.setOpaque(true);
 		this.labelJournal.setMinimumSize(MAIN_COMP_DIMENSIONS);
 		this.labelJournal.setPreferredSize(MAIN_COMP_DIMENSIONS);
@@ -94,9 +97,10 @@ public class MainMenuPanel extends JPanel {
 		this.btnJournalAdd.setMinimumSize(MAIN_COMP_DIMENSIONS);
 		this.btnJournalAdd.setPreferredSize(MAIN_COMP_DIMENSIONS);
 		this.btnJournalAdd.setMaximumSize(MAIN_COMP_DIMENSIONS);
-		this.btnJournalAdd.setBackground(Color.GRAY);
-		this.btnJournalAdd.setForeground(Color.WHITE);
+		this.btnJournalAdd.setBackground(Color.LIGHT_GRAY);
+		this.btnJournalAdd.setForeground(Color.BLACK);
 		this.btnJournalAdd.setFont(BTN_SUB_FONT);
+		this.btnJournalAdd.addMouseListener(new ButtonMouseListener());
 		this.btnJournalAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -111,22 +115,23 @@ public class MainMenuPanel extends JPanel {
 		this.btnJournalRemove.setMinimumSize(MAIN_COMP_DIMENSIONS);
 		this.btnJournalRemove.setPreferredSize(MAIN_COMP_DIMENSIONS);
 		this.btnJournalRemove.setMaximumSize(MAIN_COMP_DIMENSIONS);
-		this.btnJournalRemove.setBackground(Color.GRAY);
-		this.btnJournalRemove.setForeground(Color.WHITE);
+		this.btnJournalRemove.setBackground(Color.LIGHT_GRAY);
+		this.btnJournalRemove.setForeground(Color.BLACK);
 		this.btnJournalRemove.setFont(BTN_SUB_FONT);
+		this.btnJournalRemove.addMouseListener(new ButtonMouseListener());
 		this.btnJournalRemove.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				root.openJournalRemovePanel();
 			}
-		});
+		});		
 	}
 	
 	private void createLabelWeeklySchedule() {
 		this.labelWeeklySchedule = new JLabel("Weekly Schedule", SwingConstants.CENTER);
 		this.labelWeeklySchedule.setFont(MAIN_COMP_FONT);
-		this.labelWeeklySchedule.setForeground(Color.WHITE);
-		this.labelWeeklySchedule.setBackground(Color.GRAY);
+		this.labelWeeklySchedule.setForeground(Color.BLACK);
+		this.labelWeeklySchedule.setBackground(Color.LIGHT_GRAY);
 		this.labelWeeklySchedule.setOpaque(true);
 		this.labelWeeklySchedule.setMinimumSize(MAIN_COMP_DIMENSIONS);
 		this.labelWeeklySchedule.setPreferredSize(MAIN_COMP_DIMENSIONS);
@@ -139,9 +144,10 @@ public class MainMenuPanel extends JPanel {
 		this.btnWeeklyScheduleAdd.setMinimumSize(MAIN_COMP_DIMENSIONS);
 		this.btnWeeklyScheduleAdd.setPreferredSize(MAIN_COMP_DIMENSIONS);
 		this.btnWeeklyScheduleAdd.setMaximumSize(MAIN_COMP_DIMENSIONS);
-		this.btnWeeklyScheduleAdd.setBackground(Color.GRAY);
-		this.btnWeeklyScheduleAdd.setForeground(Color.WHITE);
+		this.btnWeeklyScheduleAdd.setBackground(Color.LIGHT_GRAY);
+		this.btnWeeklyScheduleAdd.setForeground(Color.BLACK);
 		this.btnWeeklyScheduleAdd.setFont(BTN_SUB_FONT);
+		this.btnWeeklyScheduleAdd.addMouseListener(new ButtonMouseListener());
 		this.btnWeeklyScheduleAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -156,9 +162,10 @@ public class MainMenuPanel extends JPanel {
 		this.btnWeeklyScheduleRemove.setMinimumSize(MAIN_COMP_DIMENSIONS);
 		this.btnWeeklyScheduleRemove.setPreferredSize(MAIN_COMP_DIMENSIONS);
 		this.btnWeeklyScheduleRemove.setMaximumSize(MAIN_COMP_DIMENSIONS);
-		this.btnWeeklyScheduleRemove.setBackground(Color.GRAY);
-		this.btnWeeklyScheduleRemove.setForeground(Color.WHITE);
+		this.btnWeeklyScheduleRemove.setBackground(Color.LIGHT_GRAY);
+		this.btnWeeklyScheduleRemove.setForeground(Color.BLACK);
 		this.btnWeeklyScheduleRemove.setFont(BTN_SUB_FONT);
+		this.btnWeeklyScheduleRemove.addMouseListener(new ButtonMouseListener());
 		this.btnWeeklyScheduleRemove.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -173,9 +180,10 @@ public class MainMenuPanel extends JPanel {
 		this.btnExit.setMinimumSize(MAIN_COMP_DIMENSIONS);
 		this.btnExit.setPreferredSize(MAIN_COMP_DIMENSIONS);
 		this.btnExit.setMaximumSize(MAIN_COMP_DIMENSIONS);
-		this.btnExit.setBackground(Color.GRAY);
-		this.btnExit.setForeground(Color.WHITE);
+		this.btnExit.setBackground(Color.LIGHT_GRAY);
+		this.btnExit.setForeground(Color.BLACK);
 		this.btnExit.setFont(MAIN_COMP_FONT);
+		this.btnExit.addMouseListener(new ButtonMouseListener());
 		this.btnExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -199,7 +207,39 @@ public class MainMenuPanel extends JPanel {
 
 	private void panelSettings() {
 		this.setLayout(layout);
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		this.setPreferredSize(MainMenuPanel.DIMENSIONS);
 		this.setBackground(Color.DARK_GRAY);
+	}
+	
+	private class ButtonMouseListener implements MouseListener {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			((JButton)e.getSource()).setBackground(Color.DARK_GRAY);
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			((JButton)e.getSource()).setBackground(Color.DARK_GRAY);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			((JButton)e.getSource()).setBackground(Color.LIGHT_GRAY);
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			((JButton)e.getSource()).setBackground(Color.DARK_GRAY);
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			((JButton)e.getSource()).setBackground(Color.LIGHT_GRAY);
+			
+		}
 	}
 }

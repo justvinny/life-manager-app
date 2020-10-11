@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,7 +22,6 @@ import javax.swing.SwingConstants;
 import domain.Date;
 import domain.JournalEntry;
 import logic.JournalEntriesController;
-import userexceptions.EntryScheduleException;
 
 @SuppressWarnings("serial")
 public class JournalAddPanel extends JPanel {
@@ -140,7 +140,7 @@ public class JournalAddPanel extends JPanel {
 			
 			// Show pop-up message if saved successfully.
 			JOptionPane.showMessageDialog(this.mainFrame, "Saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-		} catch (EntryScheduleException e) {
+		} catch (IllegalArgumentException | InputMismatchException e) {
 			// Show pop-up message if user entered bad input.
 			JOptionPane.showMessageDialog(this.mainFrame, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -155,7 +155,7 @@ public class JournalAddPanel extends JPanel {
 		Date date = new Date(today.getDayOfMonth(), today.getMonthValue(), today.getYear());
 	
 		// Get description.
-		String description = this.textAreaBody.getText().trim();
+		String description = this.textAreaBody.getText().trim().replaceAll("\\\n", "==newline==");
 		
 		return new JournalEntry(title, date, description);
 	}
@@ -171,7 +171,8 @@ public class JournalAddPanel extends JPanel {
 	
 	private void panelSettings() {
 		this.setLayout(this.layout);
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		this.setPreferredSize(JournalAddPanel.DIMENSIONS);
-		this.setBackground(Color.WHITE);
+		this.setBackground(Color.LIGHT_GRAY);
 	}
 }

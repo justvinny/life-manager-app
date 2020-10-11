@@ -13,6 +13,7 @@ public class CSVFile {
 	// Constants for CSV delimiters for easy reuse.
 	public static final String SAVE_DELIMITER = "-||==||-";
 	public static final String LOAD_DELIMITER = "-\\|\\|==\\|\\|-";
+	public static final String NEWLINE_DELIMITER = "==newline==";
 	
 	public static ArrayList<String> load(String filePath) {
 		ArrayList<String> entryList = new ArrayList<>();

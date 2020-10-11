@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import database.CSVFile;
 import domain.JournalEntry;
 import logic.JournalEntriesController;
 
@@ -229,7 +230,7 @@ public class JournalRemovePanel extends JPanel {
 			String date = "Date: " + entries.get(index).getDate().toString();
 			this.labelDate.setText(date);
 			
-			String description = entries.get(index).getDescription();
+			String description = entries.get(index).getDescription().replaceAll(CSVFile.NEWLINE_DELIMITER, "\n");
 			this.textAreaBody.setText(description);
 			
 			this.displayTotalPages(entries, this.currentPage);
@@ -253,7 +254,8 @@ public class JournalRemovePanel extends JPanel {
 	
 	private void panelSettings() {
 		this.setLayout(this.layout);
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		this.setPreferredSize(JournalAddPanel.DIMENSIONS);
-		this.setBackground(Color.WHITE);
+		this.setBackground(Color.LIGHT_GRAY);
 	}
 }

@@ -29,7 +29,7 @@ public class JournalEntry extends Entry implements Comparable<JournalEntry> {
 	}
 
 	public String getDescription() {
-		return description;
+		return description.replaceAll("\\\n", CSVFile.NEWLINE_DELIMITER);
 	}
 
 	public Date getDate() {

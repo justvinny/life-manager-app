@@ -26,15 +26,53 @@ public class WeeklyScheduleEntriesController implements Loadable, Saveable {
 	}
 	
 	public void add(WeeklyScheduleEntry weeklyEntry) {
+		this.checkDuplicates(weeklyEntry);
+		this.checkTimeConflicts(weeklyEntry);
+		this.weeklyEntries.put(weeklyEntry.getTitle(), weeklyEntry);
+	}
+	
+	public void checkDuplicates(WeeklyScheduleEntry weeklyEntry) {
 		if (this.weeklyEntries.containsValue(weeklyEntry)) {
 			throw new EntryScheduleException("No duplicate entries allowed.");
 		}
 		
 		if (this.weeklyEntries.containsKey(weeklyEntry.getTitle())) {
-			throw new EntryScheduleException("No duplicate keyes allowed.");
+			throw new EntryScheduleException("No duplicate keys allowed.");
+		}
+	}
+	
+	public void checkTimeConflicts(WeeklyScheduleEntry weeklyEntry) {
+		boolean matchTimeScheduled = 
+				this.weeklyEntries.values()
+								  .stream()
+								  .map(WeeklyScheduleEntry::getTimeScheduled)
+								  .anyMatch(scheduled -> scheduled.equals(weeklyEntry.getTimeScheduled()));
+		
+		if (matchTimeScheduled) {
+			throw new EntryScheduleException("No duplicate time scheduled allowed.");
 		}
 		
-		this.weeklyEntries.put(weeklyEntry.getTitle(), weeklyEntry);
+		boolean isStartTimeConflict =
+				this.weeklyEntries.values()
+				  .stream()
+				  .map(WeeklyScheduleEntry::getTimeScheduled)
+				  .anyMatch(scheduled -> weeklyEntry.getTimeScheduled().getStartTime() >= scheduled.getStartTime() 
+	  				&& weeklyEntry.getTimeScheduled().getStartTime() < scheduled.getEndTime());
+		
+		if (isStartTimeConflict) {
+			throw new EntryScheduleException("Start time must not be between existing start and end time.");
+		}
+		
+		boolean isEndTimeConflict = 
+				this.weeklyEntries.values()
+				  .stream()
+				  .map(WeeklyScheduleEntry::getTimeScheduled)
+				  .anyMatch(scheduled -> weeklyEntry.getTimeScheduled().getEndTime() > scheduled.getStartTime() 
+				  				&& weeklyEntry.getTimeScheduled().getEndTime() <= scheduled.getEndTime());
+		
+		if (isEndTimeConflict) {
+			throw new EntryScheduleException("End time must not be between existing start and end time.");
+		}
 	}
 	
 	public WeeklyScheduleEntry get(String key) {
