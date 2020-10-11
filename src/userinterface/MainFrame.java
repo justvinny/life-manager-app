@@ -2,7 +2,6 @@ package userinterface;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
@@ -16,8 +15,12 @@ public class MainFrame extends JFrame {
 	
 	private SpringLayout layout;
 	private MainMenuPanel mainMenuPanel;
-	private JournalPanel journalPanel;
-	private WeeklySchedulePanel weeklySchedulePanel;
+	private JournalAddPanel journalAddPanel;
+	private JournalRemovePanel journalRemovePanel;
+	private WeeklyScheduleAddPanel weeklyScheduleAddPanel;
+	private WeeklyScheduleRemovePanel weeklyScheduleRemovePanel;
+	private JournalEntriesController journalEntriesController;
+	private WeeklyScheduleEntriesController weeklyEntriesController;
 	
 	public MainFrame(String title, JournalEntriesController journalEntriesController, WeeklyScheduleEntriesController weeklyEntriesController) {
 		super(title);
@@ -25,8 +28,8 @@ public class MainFrame extends JFrame {
 		// Initialize fields.
 		this.layout = new SpringLayout();
 		this.mainMenuPanel = new MainMenuPanel(this);
-		this.journalPanel = new JournalPanel(this);
-		this.weeklySchedulePanel = new WeeklySchedulePanel(this);
+		this.journalEntriesController = journalEntriesController;
+		this.weeklyEntriesController = weeklyEntriesController;
 		
 		// Add main menu panel to frame.
 		this.getContentPane().add(mainMenuPanel);
@@ -38,28 +41,60 @@ public class MainFrame extends JFrame {
 		frameSettings();
 	}
 	
-	public void openJournalPanel() {
-		Component tempComponent = null;
-		for (Component component : this.getContentPane().getComponents()) {
-			if (component instanceof WeeklySchedulePanel) {
-				tempComponent = component;
-			}
-		}
+	public void openJournalAddPanel() {
+		this.journalAddPanel = new JournalAddPanel(this, this.journalEntriesController);
 		
-		if (tempComponent != null) {
-			this.getContentPane().remove(tempComponent);
-		}
+		this.removeActivePanel();
 		
-		this.getContentPane().add(this.journalPanel);
-		this.layout.putConstraint(SpringLayout.WEST, journalPanel, 0, SpringLayout.EAST, mainMenuPanel);
-		this.journalPanel.revalidate();
-		this.journalPanel.repaint();
+		this.getContentPane().add(this.journalAddPanel);
+		this.layout.putConstraint(SpringLayout.WEST, this.journalAddPanel, 0, SpringLayout.EAST, this.mainMenuPanel);
+		this.journalAddPanel.revalidate();
+		this.journalAddPanel.repaint();
 	}
 	
-	public void openWeeklySchedulePanel() {
+	public void openJournalRemovePanel() {
+		this.journalRemovePanel = new JournalRemovePanel(this.journalEntriesController);
+
+		this.removeActivePanel();
+		
+		this.getContentPane().add(this.journalRemovePanel);
+		this.layout.putConstraint(SpringLayout.WEST, this.journalRemovePanel, 0, SpringLayout.EAST, this.mainMenuPanel);
+		this.journalRemovePanel.revalidate();
+		this.journalRemovePanel.repaint();
+	}
+	
+	public void openWeeklyScheduleAddPanel() {
+		this.weeklyScheduleAddPanel = new WeeklyScheduleAddPanel(this);
+		
+		this.removeActivePanel();
+		
+		this.getContentPane().add(this.weeklyScheduleAddPanel);
+		this.layout.putConstraint(SpringLayout.WEST, this.weeklyScheduleAddPanel, 0, SpringLayout.EAST, this.mainMenuPanel);
+		this.weeklyScheduleAddPanel.revalidate();
+		this.weeklyScheduleAddPanel.repaint();
+	}
+	
+	public void openWeeklyScheduleRemovePanel() {
+		this.weeklyScheduleRemovePanel = new WeeklyScheduleRemovePanel(this);
+		
+		this.removeActivePanel();
+		
+		this.getContentPane().add(this.weeklyScheduleRemovePanel);
+		this.layout.putConstraint(SpringLayout.WEST, this.weeklyScheduleRemovePanel, 0, SpringLayout.EAST, this.mainMenuPanel);
+		this.weeklyScheduleRemovePanel.revalidate();
+		this.weeklyScheduleRemovePanel.repaint();
+	}
+	
+	private void removeActivePanel() {
 		Component tempComponent = null;
 		for (Component component : this.getContentPane().getComponents()) {
-			if (component instanceof JournalPanel) {
+			if (component instanceof JournalAddPanel) {
+				tempComponent = component;
+			} else if (component instanceof JournalRemovePanel) {
+				tempComponent = component;
+			} else if (component instanceof WeeklyScheduleAddPanel) {
+				tempComponent = component;
+			} else if (component instanceof WeeklyScheduleRemovePanel) {
 				tempComponent = component;
 			}
 		}
@@ -67,12 +102,6 @@ public class MainFrame extends JFrame {
 		if (tempComponent != null) {
 			this.getContentPane().remove(tempComponent);
 		}
-		
-		Arrays.stream(this.getContentPane().getComponents()).forEach(System.out::println);
-		this.getContentPane().add(this.weeklySchedulePanel);
-		this.layout.putConstraint(SpringLayout.WEST, weeklySchedulePanel, 0, SpringLayout.EAST, mainMenuPanel);
-		this.weeklySchedulePanel.revalidate();
-		this.weeklySchedulePanel.repaint();
 	}
 	
 	private void frameSettings() {

@@ -12,16 +12,16 @@ public class JournalEntry extends Entry implements Comparable<JournalEntry> {
 	private String title;
 	private Date date;
 	
-	public JournalEntry(String title, Date date, String description) {
+	public JournalEntry(String title, Date date, String description) throws EntryScheduleException {
 		this.setTitle(title);
 		this.setDate(date);
 		this.setDescription(description);
 	}
 	
-	public JournalEntry(String title, Date date) {
+	public JournalEntry(String title, Date date) throws EntryScheduleException {
 		this.setTitle(title);
 		this.setDate(date);
-		this.setDescription("");
+		this.setDescription("blank");
 	}
 	
 	public String getTitle() {
@@ -42,13 +42,21 @@ public class JournalEntry extends Entry implements Comparable<JournalEntry> {
 			throw new EntryScheduleException("Title length must be less than 64 characters.");
 		}
 		
+		if (title.length() <= 0) {
+			throw new EntryScheduleException("Must not be blank!");
+		}
+		
 		this.title = title;
 	}
 	
 	@Override
 	public void setDescription(String description) {
 		if (description.length() > JournalEntry.DESCRIPTION_LIMIT) {
-			throw new EntryScheduleException("Description length must be less than 1000 characters.");
+			throw new EntryScheduleException("Description length must be less than 3000 characters.");
+		}
+		
+		if (description.length() <= 0) {
+			throw new EntryScheduleException("Must not be blank!");
 		}
 		
 		this.description = description;

@@ -10,19 +10,24 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class MainMenuPanel extends JPanel {
 	public static final Dimension DIMENSIONS = new Dimension(200, 720);
-	public static final Dimension BTN_DIMENSIONS = new Dimension(200, 40);
+	public static final Dimension MAIN_COMP_DIMENSIONS = new Dimension(200, 40);
 	public static final Dimension FILLER_DIMENSIONS = new Dimension(200, 60);
 	public static final Dimension FILLER_BOT_DIMENSIONS = new Dimension(200, 180);
-	public static final Font BTN_FONT = new Font("Impact", Font.PLAIN, 20);
+	public static final Font MAIN_COMP_FONT = new Font("Impact", Font.PLAIN, 20);
+	public static final Font BTN_SUB_FONT = new Font("Impact", Font.PLAIN, 14);
 	
 	private MainFrame root;
 	private BoxLayout layout;
 	private JLabel fillerTopLabel1, fillerTopLabel2, fillerBottomLabel;
-	private JButton btnJournal, btnWeeklySchedule, btnExit;
+	private JLabel labelJournal, labelWeeklySchedule;
+	private JButton btnJournalAdd, btnWeeklyScheduleAdd;
+	private JButton btnJournalRemove, btnWeeklyScheduleRemove;
+	private JButton btnExit;
 	
 	public MainMenuPanel(MainFrame root) {
 		// Instance of root window.
@@ -33,8 +38,12 @@ public class MainMenuPanel extends JPanel {
 				
 		// Initialize components for panel.
 		this.createFillerLabelsForMenu();
-		this.createBtnJournal();
-		this.createBtnWeeklySchedule();
+		this.createLabelJournal();
+		this.createBtnJournalAdd();
+		this.createBtnJournalRemove();
+		this.createLabelWeeklySchedule();
+		this.createBtnWeeklyScheduleAdd();
+		this.createBtnWeeklyScheduleRemove();
 		this.createBtnExit();
 		
 		// Add components to panel
@@ -68,36 +77,92 @@ public class MainMenuPanel extends JPanel {
 		this.fillerBottomLabel.setMaximumSize(FILLER_BOT_DIMENSIONS);
 	}
 	
-	private void createBtnJournal() {
-		// Journal Button
-		this.btnJournal = new JButton("Journal");
-		this.btnJournal.setMinimumSize(BTN_DIMENSIONS);
-		this.btnJournal.setPreferredSize(BTN_DIMENSIONS);
-		this.btnJournal.setMaximumSize(BTN_DIMENSIONS);
-		this.btnJournal.setBackground(Color.GRAY);
-		this.btnJournal.setForeground(Color.WHITE);
-		this.btnJournal.setFont(BTN_FONT);
-		this.btnJournal.addActionListener(new ActionListener() {
+	private void createLabelJournal() {
+		this.labelJournal = new JLabel("Journal", SwingConstants.CENTER);
+		this.labelJournal.setFont(MAIN_COMP_FONT);
+		this.labelJournal.setForeground(Color.WHITE);
+		this.labelJournal.setBackground(Color.GRAY);
+		this.labelJournal.setOpaque(true);
+		this.labelJournal.setMinimumSize(MAIN_COMP_DIMENSIONS);
+		this.labelJournal.setPreferredSize(MAIN_COMP_DIMENSIONS);
+		this.labelJournal.setMaximumSize(MAIN_COMP_DIMENSIONS);
+	}
+	
+	private void createBtnJournalAdd() {
+		this.btnJournalAdd = new JButton("> Add Entry");
+		this.btnJournalAdd.setHorizontalAlignment(SwingConstants.LEFT);
+		this.btnJournalAdd.setMinimumSize(MAIN_COMP_DIMENSIONS);
+		this.btnJournalAdd.setPreferredSize(MAIN_COMP_DIMENSIONS);
+		this.btnJournalAdd.setMaximumSize(MAIN_COMP_DIMENSIONS);
+		this.btnJournalAdd.setBackground(Color.GRAY);
+		this.btnJournalAdd.setForeground(Color.WHITE);
+		this.btnJournalAdd.setFont(BTN_SUB_FONT);
+		this.btnJournalAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				root.openJournalPanel();
+				root.openJournalAddPanel();
 			}
 		});
 	}
 	
-	private void createBtnWeeklySchedule() {
-		// Weekly Schedule Button
-		this.btnWeeklySchedule = new JButton("Weekly Schedule");
-		this.btnWeeklySchedule.setMinimumSize(BTN_DIMENSIONS);
-		this.btnWeeklySchedule.setPreferredSize(BTN_DIMENSIONS);
-		this.btnWeeklySchedule.setMaximumSize(BTN_DIMENSIONS);
-		this.btnWeeklySchedule.setBackground(Color.GRAY);
-		this.btnWeeklySchedule.setForeground(Color.WHITE);
-		this.btnWeeklySchedule.setFont(BTN_FONT);
-		this.btnWeeklySchedule.addActionListener(new ActionListener() {
+	private void createBtnJournalRemove() {
+		this.btnJournalRemove = new JButton("> View / Remove Entry");
+		this.btnJournalRemove.setHorizontalAlignment(SwingConstants.LEFT);
+		this.btnJournalRemove.setMinimumSize(MAIN_COMP_DIMENSIONS);
+		this.btnJournalRemove.setPreferredSize(MAIN_COMP_DIMENSIONS);
+		this.btnJournalRemove.setMaximumSize(MAIN_COMP_DIMENSIONS);
+		this.btnJournalRemove.setBackground(Color.GRAY);
+		this.btnJournalRemove.setForeground(Color.WHITE);
+		this.btnJournalRemove.setFont(BTN_SUB_FONT);
+		this.btnJournalRemove.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				root.openWeeklySchedulePanel();
+				root.openJournalRemovePanel();
+			}
+		});
+	}
+	
+	private void createLabelWeeklySchedule() {
+		this.labelWeeklySchedule = new JLabel("Weekly Schedule", SwingConstants.CENTER);
+		this.labelWeeklySchedule.setFont(MAIN_COMP_FONT);
+		this.labelWeeklySchedule.setForeground(Color.WHITE);
+		this.labelWeeklySchedule.setBackground(Color.GRAY);
+		this.labelWeeklySchedule.setOpaque(true);
+		this.labelWeeklySchedule.setMinimumSize(MAIN_COMP_DIMENSIONS);
+		this.labelWeeklySchedule.setPreferredSize(MAIN_COMP_DIMENSIONS);
+		this.labelWeeklySchedule.setMaximumSize(MAIN_COMP_DIMENSIONS);
+	}
+	
+	private void createBtnWeeklyScheduleAdd() {
+		this.btnWeeklyScheduleAdd = new JButton("> Add Entry");
+		this.btnWeeklyScheduleAdd.setHorizontalAlignment(SwingConstants.LEFT);
+		this.btnWeeklyScheduleAdd.setMinimumSize(MAIN_COMP_DIMENSIONS);
+		this.btnWeeklyScheduleAdd.setPreferredSize(MAIN_COMP_DIMENSIONS);
+		this.btnWeeklyScheduleAdd.setMaximumSize(MAIN_COMP_DIMENSIONS);
+		this.btnWeeklyScheduleAdd.setBackground(Color.GRAY);
+		this.btnWeeklyScheduleAdd.setForeground(Color.WHITE);
+		this.btnWeeklyScheduleAdd.setFont(BTN_SUB_FONT);
+		this.btnWeeklyScheduleAdd.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				root.openWeeklyScheduleAddPanel();
+			}
+		});
+	}
+	
+	private void createBtnWeeklyScheduleRemove() {
+		this.btnWeeklyScheduleRemove = new JButton("> View / Remove Entry");
+		this.btnWeeklyScheduleRemove.setHorizontalAlignment(SwingConstants.LEFT);
+		this.btnWeeklyScheduleRemove.setMinimumSize(MAIN_COMP_DIMENSIONS);
+		this.btnWeeklyScheduleRemove.setPreferredSize(MAIN_COMP_DIMENSIONS);
+		this.btnWeeklyScheduleRemove.setMaximumSize(MAIN_COMP_DIMENSIONS);
+		this.btnWeeklyScheduleRemove.setBackground(Color.GRAY);
+		this.btnWeeklyScheduleRemove.setForeground(Color.WHITE);
+		this.btnWeeklyScheduleRemove.setFont(BTN_SUB_FONT);
+		this.btnWeeklyScheduleRemove.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				root.openWeeklyScheduleRemovePanel();
 			}
 		});
 	}
@@ -105,12 +170,12 @@ public class MainMenuPanel extends JPanel {
 	private void createBtnExit() {
 		// Exit Button
 		this.btnExit = new JButton("Exit");
-		this.btnExit.setMinimumSize(BTN_DIMENSIONS);
-		this.btnExit.setPreferredSize(BTN_DIMENSIONS);
-		this.btnExit.setMaximumSize(BTN_DIMENSIONS);
+		this.btnExit.setMinimumSize(MAIN_COMP_DIMENSIONS);
+		this.btnExit.setPreferredSize(MAIN_COMP_DIMENSIONS);
+		this.btnExit.setMaximumSize(MAIN_COMP_DIMENSIONS);
 		this.btnExit.setBackground(Color.GRAY);
 		this.btnExit.setForeground(Color.WHITE);
-		this.btnExit.setFont(BTN_FONT);
+		this.btnExit.setFont(MAIN_COMP_FONT);
 		this.btnExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -120,12 +185,16 @@ public class MainMenuPanel extends JPanel {
 	}
 	
 	private void addComponentsToPanel() {
-		this.add(fillerTopLabel1);
-		this.add(fillerTopLabel2);
-		this.add(btnJournal);
-		this.add(btnWeeklySchedule);
-		this.add(btnExit);
-		this.add(fillerBottomLabel);
+		this.add(this.fillerTopLabel1);
+		this.add(this.fillerTopLabel2);
+		this.add(this.labelJournal);
+		this.add(this.btnJournalAdd);
+		this.add(this.btnJournalRemove);
+		this.add(this.labelWeeklySchedule);
+		this.add(this.btnWeeklyScheduleAdd);
+		this.add(this.btnWeeklyScheduleRemove);
+		this.add(this.btnExit);
+		this.add(this.fillerBottomLabel);
 	}
 
 	private void panelSettings() {

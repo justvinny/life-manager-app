@@ -16,8 +16,12 @@ public class CSVFile {
 	
 	public static ArrayList<String> load(String filePath) {
 		ArrayList<String> entryList = new ArrayList<>();
-		File path = new File(".\\resources\\practice.csv");
+		File path = new File(filePath);
 		String row;
+		
+		if (!path.isFile()) {
+			return entryList;
+		}
 		
 		try {
 			BufferedReader readerCSV = new BufferedReader(new FileReader(path));
@@ -37,16 +41,12 @@ public class CSVFile {
 	}
 
 	public static void save(String filePath, ArrayList<String> entryList) {
-		File path = new File(".\\resources\\practice.csv");
+		File path = new File(filePath);
 		FileWriter fileCSV = null;
 		
 		try {
-			if (path.isFile()) {
-				fileCSV = new FileWriter(path, true);
-				
-			} else {
-				fileCSV = new FileWriter(path);
-			}
+			fileCSV = new FileWriter(path);
+		
 			
 			for (String entry  : entryList) {
 				fileCSV.append(entry);

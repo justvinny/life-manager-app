@@ -6,20 +6,20 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class JournalPanel extends JPanel {
+public class WeeklyScheduleAddPanel extends JPanel {
 	public static final Dimension DIMENSIONS = new Dimension(900, 720);
 	
-	private MainFrame root;
+	private MainFrame mainFrame;
 	
-	public JournalPanel(MainFrame root) {
+	public WeeklyScheduleAddPanel(MainFrame root) {
 		// Instance of root window.
-		this.root = root;
+		this.MainFrame = mainFrame;
 		
 		this.panelSettings();
 	}
 	
 	private void panelSettings() {
-		this.setPreferredSize(JournalPanel.DIMENSIONS);
-		this.setBackground(Color.BLUE);
+		this.setPreferredSize(JournalAddPanel.DIMENSIONS);
+		this.setBackground(Color.RED);
 	}
 }

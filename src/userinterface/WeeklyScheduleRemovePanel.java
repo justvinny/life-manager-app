@@ -5,13 +5,12 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
-public class WeeklySchedulePanel extends JPanel {
+public class WeeklyScheduleRemovePanel extends JPanel {
 	public static final Dimension DIMENSIONS = new Dimension(900, 720);
 	
 	private MainFrame root;
 	
-	public WeeklySchedulePanel(MainFrame root) {
+	public WeeklyScheduleRemovePanel(MainFrame root) {
 		// Instance of root window.
 		this.root = root;
 		
@@ -19,7 +18,7 @@ public class WeeklySchedulePanel extends JPanel {
 	}
 	
 	private void panelSettings() {
-		this.setPreferredSize(JournalPanel.DIMENSIONS);
-		this.setBackground(Color.RED);
+		this.setPreferredSize(JournalAddPanel.DIMENSIONS);
+		this.setBackground(Color.GREEN);
 	}
 }

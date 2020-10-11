@@ -9,10 +9,10 @@ public class Date implements Comparable<Date>{
 	private int month;
 	private int day;
 	
-	public Date(int year, int month, int day) throws EntryScheduleException {
-		this.setYear(year);
-		this.setMonth(month);
+	public Date(int day, int month, int year) throws EntryScheduleException {
 		this.setDay(day);
+		this.setMonth(month);
+		this.setYear(year);
 	}
 	
 	public Date(String dateString) {
