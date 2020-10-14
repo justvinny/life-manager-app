@@ -9,12 +9,13 @@ import database.CSVFile;
 import domain.JournalEntry;
 import domain.Loadable;
 import domain.Saveable;
+import domain.TimeScheduled;
 import domain.WeeklyScheduleEntry;
 import userexceptions.EntryScheduleException;
 
 public class WeeklyScheduleEntriesController implements Loadable, Saveable {
 	
-	private final String FILE_NAME = "./resources/weekly-entries.csv";
+	private final String FILE_NAME = "weekly-entries.csv";
 	private HashMap<String, WeeklyScheduleEntry> weeklyEntries;
 	
 	public WeeklyScheduleEntriesController() throws EntryScheduleException {
@@ -52,25 +53,32 @@ public class WeeklyScheduleEntriesController implements Loadable, Saveable {
 			throw new EntryScheduleException("No duplicate time scheduled allowed.");
 		}
 		
+		boolean isSameDay = 
+				this.weeklyEntries.values()
+				.stream()
+				.map(WeeklyScheduleEntry::getTimeScheduled)
+				.map(TimeScheduled::getDay)
+				.anyMatch(day -> day == weeklyEntry.getTimeScheduled().getDay());
+		
 		boolean isStartTimeConflict =
 				this.weeklyEntries.values()
-				  .stream()
-				  .map(WeeklyScheduleEntry::getTimeScheduled)
-				  .anyMatch(scheduled -> weeklyEntry.getTimeScheduled().getStartTime() >= scheduled.getStartTime() 
-	  				&& weeklyEntry.getTimeScheduled().getStartTime() < scheduled.getEndTime());
+				    .stream()
+				    .map(WeeklyScheduleEntry::getTimeScheduled)
+				    .anyMatch(scheduled -> weeklyEntry.getTimeScheduled().getStartTime() >= scheduled.getStartTime() 
+	  							&& weeklyEntry.getTimeScheduled().getStartTime() < scheduled.getEndTime());
 		
-		if (isStartTimeConflict) {
+		if (isStartTimeConflict && isSameDay) {
 			throw new EntryScheduleException("Start time must not be between existing start and end time.");
 		}
 		
 		boolean isEndTimeConflict = 
 				this.weeklyEntries.values()
-				  .stream()
-				  .map(WeeklyScheduleEntry::getTimeScheduled)
-				  .anyMatch(scheduled -> weeklyEntry.getTimeScheduled().getEndTime() > scheduled.getStartTime() 
+				    .stream()
+				    .map(WeeklyScheduleEntry::getTimeScheduled)
+				    .anyMatch(scheduled -> weeklyEntry.getTimeScheduled().getEndTime() > scheduled.getStartTime() 
 				  				&& weeklyEntry.getTimeScheduled().getEndTime() <= scheduled.getEndTime());
 		
-		if (isEndTimeConflict) {
+		if (isEndTimeConflict && isSameDay) {
 			throw new EntryScheduleException("End time must not be between existing start and end time.");
 		}
 	}

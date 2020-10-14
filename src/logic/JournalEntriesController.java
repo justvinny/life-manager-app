@@ -12,7 +12,7 @@ import domain.Saveable;
 import userexceptions.EntryScheduleException;
 
 public class JournalEntriesController implements Loadable, Saveable {
-	private final String FILE_NAME = "./resources/journal-entries.csv";
+	private final String FILE_NAME = "journal-entries.csv";
 	private HashMap<String, JournalEntry> journalEntries;
 	
 	public JournalEntriesController() throws EntryScheduleException {

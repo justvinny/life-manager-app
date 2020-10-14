@@ -125,8 +125,8 @@ public class WeeklyScheduleRemovePanel extends JPanel {
 		
 		springLayout.putConstraint(SpringLayout.WEST, removeSelected, 380, SpringLayout.WEST, this.actionPanel);
 		
-		// Sort by combobox.		
-		String[] sortOptions = {"Time Scheduled", "Title", "Description Length", "Date Entered", "Date Entered Reversed"};
+		// Sort by combo box.		
+		String[] sortOptions = {"Choose...", "Time Scheduled", "Title", "Description Length", "Date Entered", "Date Entered Reversed"};
 		JComboBox<String> sortBy = new JComboBox<String>(sortOptions);
 		sortBy.setFont(WeeklyScheduleRemovePanel.DYNAMIC_FONT);
 		sortBy.addItemListener(new ItemListener() {
