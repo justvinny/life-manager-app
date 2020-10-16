@@ -15,16 +15,32 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * Class that contains the JPanel user interface for the Main Menu used for navigation.
+ * 
+ * @author Vinson Beduya 19089783
+ */
 @SuppressWarnings("serial")
 public class MainMenuPanel extends JPanel {
+	/**
+	 * Dimension constants that will be used by various JComponents.
+	 */
 	public static final Dimension DIMENSIONS = new Dimension(200, 720);
 	public static final Dimension MAIN_COMP_DIMENSIONS = new Dimension(200, 40);
 	public static final Dimension FILLER_DIMENSIONS = new Dimension(200, 60);
 	public static final Dimension FILLER_BOT_DIMENSIONS = new Dimension(200, 2);
+	
+	/**
+	 * Font constants that will be used by various JComponents.
+	 */
 	public static final Font MAIN_COMP_FONT = new Font("Impact", Font.PLAIN, 20);
 	public static final Font BTN_SUB_FONT = new Font("Impact", Font.PLAIN, 14);
 	
-	private MainFrame root;
+	/**
+	 * Instance variables.
+	 * 
+	 */
+	private MainFrame mainFrame;
 	private BoxLayout layout;
 	private JLabel fillerTopLabel1, fillerTopLabel2, fillerBottomLabel;
 	private JLabel labelJournal, labelWeeklySchedule;
@@ -32,14 +48,20 @@ public class MainMenuPanel extends JPanel {
 	private JButton btnJournalRemove, btnWeeklyScheduleRemove;
 	private JButton btnExit;
 	
-	public MainMenuPanel(MainFrame root) {
-		// Instance of root window.
-		this.root = root;
+	/**
+	 * Constructor to initialise the main menu panel.
+	 * 
+	 * @param mainFrame is the instance of the main JFrame.
+	 * @author 19089783
+	 */
+	public MainMenuPanel(MainFrame mainFrame) {
+		// Instance of mainFrame window.
+		this.mainFrame = mainFrame;
 		
-		// Initialize box layout.
+		// Initialise box layout.
 		this.layout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
 				
-		// Initialize components for panel.
+		// Initialise components for panel.
 		this.createFillerLabelsForMenu();
 		this.createLabelJournal();
 		this.createBtnJournalAdd();
@@ -56,6 +78,11 @@ public class MainMenuPanel extends JPanel {
 		this.panelSettings();
 	}
 	
+	/**
+	 * Creates filler labels for menu spacing.
+	 * 
+	 * @author 19089783
+	 */
 	private void createFillerLabelsForMenu() {
 		// Dark Gray top filler for menu.
 		this.fillerTopLabel1 = new JLabel("");
@@ -80,6 +107,11 @@ public class MainMenuPanel extends JPanel {
 		this.fillerBottomLabel.setMaximumSize(FILLER_BOT_DIMENSIONS);
 	}
 	
+	/**
+	 * Creates the label header for the journal buttons.
+	 * 
+	 * @author 19089783
+	 */
 	private void createLabelJournal() {
 		this.labelJournal = new JLabel("Journal", SwingConstants.CENTER);
 		this.labelJournal.setFont(MAIN_COMP_FONT);
@@ -91,6 +123,11 @@ public class MainMenuPanel extends JPanel {
 		this.labelJournal.setMaximumSize(MAIN_COMP_DIMENSIONS);
 	}
 	
+	/**
+	 * Creates the button that will be used for navigating to the Journal Add panel.
+	 * 
+	 * @author 19089783
+	 */
 	private void createBtnJournalAdd() {
 		this.btnJournalAdd = new JButton("> Add Entry");
 		this.btnJournalAdd.setHorizontalAlignment(SwingConstants.LEFT);
@@ -100,15 +137,24 @@ public class MainMenuPanel extends JPanel {
 		this.btnJournalAdd.setBackground(Color.LIGHT_GRAY);
 		this.btnJournalAdd.setForeground(Color.BLACK);
 		this.btnJournalAdd.setFont(BTN_SUB_FONT);
+		
+		// Mouse listener to change the button background when mouse hovers.
 		this.btnJournalAdd.addMouseListener(new ButtonMouseListener());
+		
+		// Action listener for the journal add button click.
 		this.btnJournalAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				root.openJournalAddPanel();
+				mainFrame.openJournalAddPanel();
 			}
 		});
 	}
 	
+	/**
+	 * Creates the button that will be used to navigate to the journal remove panel.
+	 * 
+	 * @author 19089783
+	 */
 	private void createBtnJournalRemove() {
 		this.btnJournalRemove = new JButton("> View / Remove Entry");
 		this.btnJournalRemove.setHorizontalAlignment(SwingConstants.LEFT);
@@ -118,15 +164,24 @@ public class MainMenuPanel extends JPanel {
 		this.btnJournalRemove.setBackground(Color.LIGHT_GRAY);
 		this.btnJournalRemove.setForeground(Color.BLACK);
 		this.btnJournalRemove.setFont(BTN_SUB_FONT);
+		
+		// Mouse listener to change the button background when the mouse hovers.
 		this.btnJournalRemove.addMouseListener(new ButtonMouseListener());
+		
+		// Action listener to listen for button click of journal remove button.
 		this.btnJournalRemove.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				root.openJournalRemovePanel();
+				mainFrame.openJournalRemovePanel();
 			}
 		});		
 	}
 	
+	/**
+	 * Create the weekly schedule label that is the header for the weekly schedule buttons.
+	 * 
+	 * @author 19089783
+	 */
 	private void createLabelWeeklySchedule() {
 		this.labelWeeklySchedule = new JLabel("Weekly Schedule", SwingConstants.CENTER);
 		this.labelWeeklySchedule.setFont(MAIN_COMP_FONT);
@@ -138,6 +193,11 @@ public class MainMenuPanel extends JPanel {
 		this.labelWeeklySchedule.setMaximumSize(MAIN_COMP_DIMENSIONS);
 	}
 	
+	/**
+	 * Create the button that navigates to the weekly schedule add panel.
+	 * 
+	 * @author 19089783
+	 */
 	private void createBtnWeeklyScheduleAdd() {
 		this.btnWeeklyScheduleAdd = new JButton("> Add Entry");
 		this.btnWeeklyScheduleAdd.setHorizontalAlignment(SwingConstants.LEFT);
@@ -147,15 +207,25 @@ public class MainMenuPanel extends JPanel {
 		this.btnWeeklyScheduleAdd.setBackground(Color.LIGHT_GRAY);
 		this.btnWeeklyScheduleAdd.setForeground(Color.BLACK);
 		this.btnWeeklyScheduleAdd.setFont(BTN_SUB_FONT);
+		
+		// Mouse listener to change the button background on mouse hover.
 		this.btnWeeklyScheduleAdd.addMouseListener(new ButtonMouseListener());
+		
+		// Action listener to listen for weekly schedule add button click.
 		this.btnWeeklyScheduleAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				root.openWeeklyScheduleAddPanel();
+				mainFrame.openWeeklyScheduleAddPanel();
 			}
 		});
 	}
 	
+	/**
+	 * Creates the weekly schedule remove button that navigates to the weekly schedule remove
+	 * panel.
+	 * 
+	 * @author 19089783
+	 */
 	private void createBtnWeeklyScheduleRemove() {
 		this.btnWeeklyScheduleRemove = new JButton("> View / Remove Entry");
 		this.btnWeeklyScheduleRemove.setHorizontalAlignment(SwingConstants.LEFT);
@@ -165,15 +235,24 @@ public class MainMenuPanel extends JPanel {
 		this.btnWeeklyScheduleRemove.setBackground(Color.LIGHT_GRAY);
 		this.btnWeeklyScheduleRemove.setForeground(Color.BLACK);
 		this.btnWeeklyScheduleRemove.setFont(BTN_SUB_FONT);
+		
+		// Adds a mouse listener to change the background of the button on mouse hover.
 		this.btnWeeklyScheduleRemove.addMouseListener(new ButtonMouseListener());
+		
+		// Add an action listener to listen for weekly schedule remove button click.
 		this.btnWeeklyScheduleRemove.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				root.openWeeklyScheduleRemovePanel();
+				mainFrame.openWeeklyScheduleRemovePanel();
 			}
 		});
 	}
 	
+	/**
+	 * Creates the exit button that exits that application.
+	 * 
+	 * @author 19089783
+	 */
 	private void createBtnExit() {
 		// Exit Button
 		this.btnExit = new JButton("Exit");
@@ -183,15 +262,24 @@ public class MainMenuPanel extends JPanel {
 		this.btnExit.setBackground(Color.LIGHT_GRAY);
 		this.btnExit.setForeground(Color.BLACK);
 		this.btnExit.setFont(MAIN_COMP_FONT);
+		
+		// Adds mouse listener to change the button background when mouse hovers.
 		this.btnExit.addMouseListener(new ButtonMouseListener());
+		
+		// Adds action listener to listen for button clicks on exit button.
 		this.btnExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				root.dispose();
+				mainFrame.dispose();
 			}
 		});
 	}
 	
+	/**
+	 * Add all components to the panel.
+	 * 
+	 * @author 19089783
+	 */
 	private void addComponentsToPanel() {
 		this.add(this.fillerTopLabel1);
 		this.add(this.fillerTopLabel2);
@@ -205,6 +293,11 @@ public class MainMenuPanel extends JPanel {
 		this.add(this.fillerBottomLabel);
 	}
 
+	/**
+	 * Panel settings.
+	 * 
+	 * @author 19089783
+	 */
 	private void panelSettings() {
 		this.setLayout(layout);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -212,6 +305,12 @@ public class MainMenuPanel extends JPanel {
 		this.setBackground(Color.DARK_GRAY);
 	}
 	
+	/**
+	 * Mouse listener that will change the background colour of menu buttons when the mouse
+	 * hovers over them to dark gray.
+	 * 
+	 * @author Vinson Beduya 19089783
+	 */
 	private class ButtonMouseListener implements MouseListener {
 		@Override
 		public void mouseClicked(MouseEvent e) {
